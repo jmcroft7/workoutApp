@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>WorkoutApp | Sign-Up</title>
+  <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-md bg-light navbar-light py-3">
+  <div class="container">
+    <a th:href="@{/}"  class="navbar-brand">WorkoutTracker</a>
+
+    <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navmenu"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navmenu">
+      <ul class="navbar-nav ms-auto gap-1">
+        <li class="nav-item">
+          <a th:href="@{/}" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a th:href="@{/exercises}" class="nav-link">Exercises</a>
+        </li>
+        <li class="nav-item">
+          <a th:href="@{/users}" class="nav-link">My Workouts</a>
+        </li>
+        <li class="nav-item" th:if="${#request.userPrincipal != null}">
+          <a th:href="@{/login}" class="btn btn btn-outline-primary">
+            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            Logout
+          </a>
+        </li>
+        <li class="nav-item" th:unless="${#request.userPrincipal != null}">
+          <a th:href="@{/login}" class="btn btn btn-outline-primary">
+            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            Login
+          </a>
+        </li>
+        <li class="nav-item"  th:unless="${#request.userPrincipal != null}">
+          <a th:href="@{/register}" class="btn btn btn-primary">
+            <i class="fa-solid fa-user-plus"></i>
+            Register
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- end of navbar -->
+<div class="container text-center">
+  <div>
+    <h1>User Registration - Sign Up</h1>
+  </div>
+  <div th:if="${param.error}">
+    <div class="alert alert-danger">
+      Invalid username and password.
+    </div>
+  </div>
+  <form th:action="@{/process_register}" th:object="${user}"
+        method="post" style="max-width: 600px; margin: 0 auto;">
+    <div class="m-3">
+      <div class="form-group row">
+        <label class="col-4 col-form-label">E-mail: </label>
+        <div class="col-8">
+          <input type="email" th:field="*{email}" class="form-control" required />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label">Password: </label>
+        <div class="col-8">
+          <input type="password" th:field="*{password}" class="form-control"
+                 required minlength="6" maxlength="10"/>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label">First Name: </label>
+        <div class="col-8">
+          <input type="text" th:field="*{firstName}" class="form-control"
+                 required minlength="2" maxlength="20"/>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label">Last Name: </label>
+        <div class="col-8">
+          <input type="text" th:field="*{lastName}" class="form-control"
+                 required minlength="2" maxlength="20" />
+        </div>
+      </div>
+
+      <div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+      </div>
+    </div>
+  </form>
+</div>
+</body>
+</html>
