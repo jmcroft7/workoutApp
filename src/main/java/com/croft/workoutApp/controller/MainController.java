@@ -1,43 +1,50 @@
 package com.croft.workoutApp.controller;
 
 import com.croft.workoutApp.model.User;
-import com.croft.workoutApp.repository.CustomUserDetails;
 import com.croft.workoutApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
-
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
     @Autowired
     private UserRepository userRepository;
 
     @GetMapping("/")
-    public String viewHomePage() {
+    public String viewHomePage(Authentication authentication, HttpSession session) {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            String username = ((UserDetails)principal).getUsername();
-            System.out.println("This is first IF " + username);
-            User user1 = userRepository.findByEmail(username);
-            System.out.println("email= " + user1.getEmail() + " name= " + user1.getFirstName() + " id= " +user1.getId());
+            String userEmail = ((UserDetails)principal).getUsername();
+            System.out.println("You are logged in with " + userEmail);
+            User user1 = userRepository.findByEmail(userEmail);
+            session.setAttribute("loggedUserId", user1.getId());
+            session.setAttribute("loggedUserFirstName", user1.getFirstName());
+            session.setMaxInactiveInterval(30);
         } else {
-            String username = principal.toString();
-            System.out.println("This is first ELSE " + username);
+            System.out.println("You are not logged in and are Anonymous");
         }
+
         return "index";
     }
 
-
     @GetMapping("/exercises")
-    public String exercises() {
+    public String exercises(HttpSession session, RedirectAttributes redirect) {
+        System.out.println(session);
+        if (session.getAttribute("loggedUserId") == null) {
+            redirect.addFlashAttribute("NotAuth", "You are not Authorized!");
+            return "redirect:/login";
+        }
+        System.out.println(session.getAttribute("loggedUserId").toString());
+        userRepository.findById((long) session.getAttribute("loggedUserId")).orElseThrow();
         return "exercises";
     }
 }

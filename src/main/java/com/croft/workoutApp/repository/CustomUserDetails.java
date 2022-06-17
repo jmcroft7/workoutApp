@@ -53,4 +53,13 @@ public class CustomUserDetails implements UserDetails {
         return user.getFirstName() + " " + user.getLastName();
     }
 
+    public String getMyMessage() {
+        String message = "is this showinghahaha";
+        return message;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
 }

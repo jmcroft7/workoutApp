@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
   <meta charset="UTF-8">
   <title>WorkoutApp | Exercises</title>
@@ -33,11 +34,11 @@
           <a th:href="@{/exercises}" class="nav-link">Exercises</a>
         </li>
         <li class="nav-item">
-          <a th:href="@{/users}" class="nav-link">My Workouts</a>
+          <a th:href="@{/dashboard}" class="nav-link">My Workouts</a>
         </li>
         <li class="nav-item" th:if="${#request.userPrincipal != null}">
-          <a th:href="@{/login}" class="btn btn btn-outline-primary">
-            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          <a th:href="@{/logout}" class="btn btn btn-outline-primary">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
             Logout
           </a>
         </li>
@@ -60,6 +61,9 @@
 <!-- end of navbar -->
 <div class="container">
   <h1>Exercise Page</h1>
+  <p th:if="${NotAuth}" class="text-success" th:text="${NotAuth}"></p>
+  <p th:text="${session.loggedUserFirstName}"></p>
+  <p th:text="${session.loggedUserId}"></p>
 </div>
 
 </body>

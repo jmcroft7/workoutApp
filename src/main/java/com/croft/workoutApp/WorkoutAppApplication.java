@@ -8,6 +8,7 @@ public class WorkoutAppApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(WorkoutAppApplication.class, args);
+		System.out.println("This ran 1x");
 	}
 
 }
