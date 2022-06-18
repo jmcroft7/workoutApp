@@ -44,20 +44,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
+    static String[] whiteList = {"/", "/exercises"};
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/exercises").permitAll()
+                .antMatchers(whiteList).permitAll()
                 .antMatchers("/dashboard").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .usernameParameter("email")
-                .defaultSuccessUrl("/")
-                .permitAll()
+                    .loginPage("/login")
+                    .usernameParameter("email")
+                    .passwordParameter("password")
+//                .loginProcessingUrl("/process_login")
+                     .defaultSuccessUrl("/dashboard", true)
+                    .permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll();
+        http.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true);
     }
 
 }

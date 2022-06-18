@@ -1,7 +1,7 @@
 package com.croft.workoutApp.repository.service;
 
 import com.croft.workoutApp.model.User;
-import com.croft.workoutApp.repository.CustomUserDetails;
+import com.croft.workoutApp.model.CustomUserDetails;
 import com.croft.workoutApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,12 +15,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByEmail(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found");
-        }
+
+        User user = userRepo.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+//        Optional<User> dbUser = userRepo.findByEmail(username);
+//        if (dbUser.isEmpty()) {
+//            throw new UsernameNotFoundException("User not found");
+//        }
+
         return new CustomUserDetails(user);
     }
-
 
 }

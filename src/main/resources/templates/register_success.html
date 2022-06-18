@@ -1,63 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
-    <meta charset="ISO-8859-1">
+>
+<head th:insert="fragments/header.html :: headerFiles">
     <title>WorkoutApp | LoggedIn</title>
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<!-- Navbar -->
-<nav class="navbar navbar-expand-md bg-light navbar-light py-3">
-    <div class="container">
-        <a th:href="@{/}"  class="navbar-brand">WorkoutTracker</a>
-
-        <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navmenu"
-        >
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navmenu">
-            <ul class="navbar-nav ms-auto gap-1">
-                <li class="nav-item">
-                    <a th:href="@{/}" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/exercises}" class="nav-link">Exercises</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/users}" class="nav-link">My Workouts</a>
-                </li>
-                <li class="nav-item" th:if="${#request.userPrincipal != null}">
-                    <a th:href="@{/login}" class="btn btn btn-outline-primary">
-                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                        Logout
-                    </a>
-                </li>
-                <li class="nav-item" th:unless="${#request.userPrincipal != null}">
-                    <a th:href="@{/login}" class="btn btn btn-outline-primary">
-                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                        Login
-                    </a>
-                </li>
-                <li class="nav-item"  th:unless="${#request.userPrincipal != null}">
-                    <a th:href="@{/register}" class="btn btn btn-primary">
-                        <i class="fa-solid fa-user-plus"></i>
-                        Register
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<!-- end of navbar -->
+<!--navbar-->
+<nav th:replace="fragments/navbar.html :: navBar"></nav>
+<!--navbar-->
 <div class="container text-center">
     <h3>You have signed up successfully!</h3>
     <h4><a th:href="@{/login}">Click here to Login</a></h4>
