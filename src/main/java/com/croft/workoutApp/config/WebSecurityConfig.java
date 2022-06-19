@@ -1,6 +1,6 @@
 package com.croft.workoutApp.config;
 
-import com.croft.workoutApp.repository.service.CustomUserDetailsService;
+import com.croft.workoutApp.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,25 +44,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
-    static String[] whiteList = {"/", "/exercises"};
+    static String[] noAuth = {"/", "/exercises"};
+
+    static String[] userAuth = {"/dashboard"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(whiteList).permitAll()
-                .antMatchers("/dashboard").authenticated()
+                .antMatchers(noAuth).permitAll()
+                .antMatchers(userAuth).authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
                     .loginPage("/login")
                     .usernameParameter("email")
                     .passwordParameter("password")
-//                .loginProcessingUrl("/process_login")
-                     .defaultSuccessUrl("/dashboard", true)
+                    .loginProcessingUrl("/process_login")
+                    .defaultSuccessUrl("/dashboard", true)
                     .permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/").permitAll();
-        http.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true);
+                .logout()
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .and()
+                .exceptionHandling()
+                    .accessDeniedPage("/error/404");
     }
 
 }
