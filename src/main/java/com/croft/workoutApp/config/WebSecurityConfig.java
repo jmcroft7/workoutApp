@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
-    static String[] noAuth = {"/", "/exercises"};
+    static String[] noAuth = {"/", "/error/**", "/login/**", "/logout", "/home/**", "/register/**", "/exercises"};
 
     static String[] userAuth = {"/dashboard"};
 
@@ -59,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginPage("/login")
                     .usernameParameter("email")
                     .passwordParameter("password")
-                    .loginProcessingUrl("/process_login")
+//                    .loginProcessingUrl("/login/loginSubmit")
                     .defaultSuccessUrl("/dashboard", true)
                     .permitAll()
                 .and()

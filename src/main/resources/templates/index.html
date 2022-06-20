@@ -11,13 +11,16 @@
 <div class="container">
     <h1>Index Page</h1>
     <p th:if="${#request.userPrincipal != null}">
-        Hello You are not null and your name is [[${session.loggedUserFirstName}]]
+        Hello You are not null and your name is [[${loggedInId}]]
+        [[${#request.userPrincipal}]]
         <br/>
         [[${#request.remoteUser}]]
     </p>
 
     <p th:unless="${#request.userPrincipal != null}">
         Hello You ARE null
+        [[${#request.userPrincipal}]]
+        Hello You are not null and your name is [[${loggedInId}]]
     </p>
 
 </div>
