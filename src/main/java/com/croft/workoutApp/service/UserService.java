@@ -1,6 +1,8 @@
 package com.croft.workoutApp.service;
 
+import com.croft.workoutApp.exception.EmailNotUniqueException;
 import com.croft.workoutApp.model.User;
+import com.croft.workoutApp.model.UserForm;
 import com.croft.workoutApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -24,6 +26,8 @@ public interface UserService {
     public Optional<User> findByEmail(String email);
 
     public boolean isFoundByFirstNameAndId(String firstName, long id);
+
+    public void createUserFromForm(UserForm userForm) throws EmailNotUniqueException;
 
 
 

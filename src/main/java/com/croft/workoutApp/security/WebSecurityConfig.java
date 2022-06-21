@@ -1,4 +1,4 @@
-package com.croft.workoutApp.config;
+package com.croft.workoutApp.security;
 
 import com.croft.workoutApp.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;

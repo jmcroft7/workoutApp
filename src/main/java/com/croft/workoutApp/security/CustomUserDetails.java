@@ -1,4 +1,4 @@
-package com.croft.workoutApp.model;
+package com.croft.workoutApp.security;
 
 import com.croft.workoutApp.model.User;
 import org.springframework.security.core.GrantedAuthority;

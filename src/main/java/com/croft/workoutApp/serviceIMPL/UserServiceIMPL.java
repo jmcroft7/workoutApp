@@ -1,8 +1,12 @@
-package com.croft.workoutApp.service;
+package com.croft.workoutApp.serviceIMPL;
 
+import com.croft.workoutApp.exception.EmailNotUniqueException;
 import com.croft.workoutApp.model.User;
+import com.croft.workoutApp.model.UserForm;
 import com.croft.workoutApp.repository.UserRepository;
+import com.croft.workoutApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,6 +18,9 @@ public class UserServiceIMPL implements UserService {
 
     @Autowired
     UserRepository userRepo;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public List<User> getAllUsers() {
@@ -65,5 +72,20 @@ public class UserServiceIMPL implements UserService {
     public boolean isFoundByFirstNameAndId(String firstName, long id) {
         return false;
     }
+    @Override
+    public void createUserFromForm(UserForm userForm) throws EmailNotUniqueException {
 
-}
+        if (userRepo.findByEmail(userForm.getEmail()).isPresent()) {
+            throw new EmailNotUniqueException("Email already exists, try an email other than " + userForm.getEmail());
+
+        }
+        User user = new User();
+        user.setFirstName(userForm.getFirstName());
+        user.setLastName(userForm.getLastName());
+        user.setPassword(passwordEncoder.encode(userForm.getPassword()));
+        user.setEmail(userForm.getEmail());
+
+        userRepo.save(user);
+
+        }
+    }

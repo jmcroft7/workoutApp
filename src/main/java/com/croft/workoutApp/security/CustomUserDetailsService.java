@@ -1,7 +1,6 @@
 package com.croft.workoutApp.security;
 
 import com.croft.workoutApp.model.User;
-import com.croft.workoutApp.model.CustomUserDetails;
 import com.croft.workoutApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
