@@ -4,39 +4,57 @@
 <head th:insert="fragments/header.html :: headerFiles">
     <title>WorkoutApp | Sign-Up</title>
 </head>
-<body>
+<body class="bg-dark">
 <!--navbar-->
 <nav th:replace="fragments/navbar.html :: navBar"></nav>
 <!--navbar-->
 
 <!--registration form-->
-<section class="d-flex align-items-center justify-content-center">
+<section class="container">
 
-    <form method="post" th:action="@{/registerSubmit}" th:object="${userForm}">
-        <ul th:if="${#fields.hasErrors('*')}">
-            <li th:each="err : ${#fields.errors('*')}" th:text="${err}" th:class="error">Input is incorrect</li>
-        </ul>
-        <p th:if="${isNotUnique}" class="alert alert-danger" th:text="${isNotUnique}"></p>
-        <p>
-            Email:
-            <input th:field="*{email}">
-            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="error"></span>
-        </p>
-        <p>
-            Password:
-            <input th:field="*{password}">
-            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="error"></span>
-        </p>
-        <p>
-            First Name:
-            <input th:field="*{firstName}">
-            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:errorclass="error"></span>
-        </p>
-        <p>
-            Last Name:
-            <input th:field="*{lastName}">
-        </p>
-        <input type="submit" value="submit">
+    <div class="container bg-light p-5 mt-5 w-50 rounded">
+        <h2 class="text-center">Register Page</h2>
+    <form method="post" th:action="@{/registerSubmit}" th:object="${userForm}" class="container d-flex flex-column">
+
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address: </label>
+            <input  id="email" class="form-control" th:field="*{email}" placeholder="a@b.com">
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="error" class="form-text text-danger"></span>
+            <span th:if="${isNotUnique}" class="form-text text-danger" th:text="${isNotUnique}"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password: </label>
+            <input id="password" class="form-control" th:field="*{password}" placeholder="1234">
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="error" class="form-text text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="confirm" class="form-label">Confirm Password: </label>
+            <input id="confirm" class="form-control" th:field="*{confirm}">
+            <span th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}" th:errorclass="error" class="form-text text-danger"></span>
+            <span th:if="${misMatch}" class="form-text text-danger" th:text="${misMatch}"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name: </label>
+            <input id="firstName" class="form-control" th:field="*{firstName}" placeholder="John">
+            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:errorclass="error" class="form-text text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name: </label>
+            <input id="lastName" class="form-control" th:field="*{lastName}" placeholder="Doe">
+            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:errorclass="error" class="form-text text-danger"></span>
+        </div>
+
+        <div class="d-flex flex-column w-50">
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+            <span class="float-end">
+            Already a user?</span>
+            <a th:href="@{/login}" class="">Click here to Login</a>
+        </div>
     </form>
     </div>
 </section>

@@ -4,36 +4,44 @@
 <head th:insert="fragments/header.html :: headerFiles">
     <title>WorkoutApp | Login</title>
 </head>
-<body>
+<body class="bg-dark">
 <!--navbar-->
 <nav th:replace="fragments/navbar.html :: navBar"></nav>
 <!--navbar-->
+<section class="container">
 
-<div class="container-fluid text-center pt-5">
-    <form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto;">
+<div class="container bg-light p-5 mt-5 w-50 rounded">
+    <h2 class="text-center">Login Page</h2>
 
-        <div th:if="${param.error}">
+    <p th:if="${NotAuth}" class="text-success" th:text="${NotAuth}"></p>
+    <p th:if="${param.logout}" class="text-warning">You have been logged out.</p>
+
+    <form th:action="@{/login}" method="post" class="container">
+
+        <div th:if="${param.error}" class="form-text text-danger">
             <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
         </div>
-        <p th:if="${NotAuth}" class="text-success" th:text="${NotAuth}"></p>
 
-        <div th:if="${param.logout}">
-            <p class="text-warning">You have been logged out.</p>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address: </label>
+            <input id="email" type="email" name="email" class="form-control" placeholder="E-mail" required autofocus/>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password: </label>
+            <input id="password" type="password" name="password" class="form-control" placeholder="Password" required/>
         </div>
 
-        <div class="border border-secondary p-3 rounded">
-            <p>Login Page</p>
-            <p>
-                <input type="email" name="email" class="form-control" placeholder="E-mail" required autofocus/>
-            </p>
-            <p>
-                <input type="password" name="password" class="form-control" placeholder="Password" required/>
-            </p>
-            <p>
-                <input type="submit" value="Login" class="btn btn-primary"/>
-            </p>
+        <input type="submit" value="Login" class="btn btn-primary"/>
+        <div class="float-end d-flex flex-column">
+            <span class="">Don't have an account?</span>
+            <a th:href="@{/register}" class="">Click here to Register</a>
         </div>
+
     </form>
+
 </div>
+
+</section>
+
 </body>
 </html>

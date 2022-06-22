@@ -5,6 +5,7 @@ import com.croft.workoutApp.model.User;
 import com.croft.workoutApp.model.UserForm;
 import com.croft.workoutApp.repository.UserRepository;
 import com.croft.workoutApp.service.UserService;
+import com.croft.workoutApp.utils.RegisterUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -69,19 +70,18 @@ public class UserServiceIMPL implements UserService {
     }
 
     @Override
-    public boolean isFoundByFirstNameAndId(String firstName, long id) {
-        return false;
-    }
-    @Override
     public void createUserFromForm(UserForm userForm) throws EmailNotUniqueException {
 
         if (userRepo.findByEmail(userForm.getEmail()).isPresent()) {
             throw new EmailNotUniqueException("Email already exists, try an email other than " + userForm.getEmail());
-
         }
+
+        String first = RegisterUtil.formatName(userForm.getFirstName());
+        String last = RegisterUtil.formatName(userForm.getLastName());
+
         User user = new User();
-        user.setFirstName(userForm.getFirstName());
-        user.setLastName(userForm.getLastName());
+        user.setFirstName(first);
+        user.setLastName(last);
         user.setPassword(passwordEncoder.encode(userForm.getPassword()));
         user.setEmail(userForm.getEmail());
 

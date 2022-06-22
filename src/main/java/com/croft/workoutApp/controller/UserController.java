@@ -9,12 +9,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 @Slf4j
 @Controller
@@ -43,6 +40,8 @@ public class UserController {
         return "redirect:/error/404";
     }
 
+}
+
 //    @PostMapping(value = "/account/saved")
 //    public ModelAndView userAccountEdit(@Valid AccountFormBean accountFormBean) throws Exception {
 //        ModelAndView response = new ModelAndView();
@@ -55,5 +54,3 @@ public class UserController {
 //        response.setViewName("redirect:/user/account/" + user.getId());
 //        return response;
 //    }
-
-}

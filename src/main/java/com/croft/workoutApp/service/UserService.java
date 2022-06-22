@@ -25,8 +25,6 @@ public interface UserService {
 
     public Optional<User> findByEmail(String email);
 
-    public boolean isFoundByFirstNameAndId(String firstName, long id);
-
     public void createUserFromForm(UserForm userForm) throws EmailNotUniqueException;
 
 
