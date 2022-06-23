@@ -3,12 +3,13 @@
 >
 <head th:insert="fragments/header.html :: headerFiles">
     <title>WorkoutApp | Index</title>
+    <link rel="stylesheet" type="text/css" th:href="@{css/style.css}"/>
 </head>
 <body>
 <!--navbar-->
 <nav th:replace="fragments/navbar.html :: navBar"></nav>
 <!--navbar-->
-<div class="container">
+<section class="container">
     <h1>Index Page</h1>
     <p th:if="${#request.userPrincipal != null}">
         Hello You are not null and your name is [[${loggedInId}]]
@@ -22,7 +23,7 @@
         [[${#request.userPrincipal}]]
     </p>
 
-</div>
+</section>
 
 </body>
 </html>

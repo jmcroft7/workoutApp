@@ -4,16 +4,17 @@
 <head th:insert="fragments/header.html :: headerFiles">
     <title>WorkoutApp | Exercises</title>
 </head>
+
 <body>
 <!--navbar-->
 <nav th:replace="fragments/navbar.html :: navBar"></nav>
 <!--navbar-->
-<div class="container">
+<section class="container">
     <h1>Exercise Page</h1>
     <p th:if="${NotAuth}" class="text-success" th:text="${NotAuth}"></p>
     <p th:text="${session.loggedUserFirstName}"></p>
     <p th:text="${session.loggedUserId}"></p>
-</div>
+</section>
 
 </body>
 </html>

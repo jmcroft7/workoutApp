@@ -3,6 +3,7 @@ package com.croft.workoutApp.serviceIMPL;
 import com.croft.workoutApp.exception.EmailNotUniqueException;
 import com.croft.workoutApp.model.User;
 import com.croft.workoutApp.model.UserForm;
+import com.croft.workoutApp.model.UserUpdateForm;
 import com.croft.workoutApp.repository.UserRepository;
 import com.croft.workoutApp.service.UserService;
 import com.croft.workoutApp.utils.RegisterUtil;
@@ -43,14 +44,18 @@ public class UserServiceIMPL implements UserService {
     }
 
     @Override
-    public void updateUser(long id, User user) {
+    public void updateUser(long id, UserUpdateForm user) {
 
         Optional<User> userData = userRepo.findById(id);
 
+        String first = RegisterUtil.formatName(user.getFirstName());
+        String last = RegisterUtil.formatName(user.getLastName());
+
         if (userData.isPresent()) {
             User _user = userData.get();
-            _user.setFirstName(user.getFirstName());
-            _user.setLastName(user.getLastName());
+            _user.setEmail(user.getEmail());
+            _user.setFirstName(first);
+            _user.setLastName(last);
             userRepo.save(_user);
         }
     }
@@ -86,6 +91,5 @@ public class UserServiceIMPL implements UserService {
         user.setEmail(userForm.getEmail());
 
         userRepo.save(user);
-
         }
     }

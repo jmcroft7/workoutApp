@@ -26,7 +26,9 @@ public class UserRegisterController {
 
     @GetMapping(value = "/register")
     public String register(@ModelAttribute("userForm") UserForm userForm, HttpSession session, RedirectAttributes redirectAttributes) {
+        log.info("Register Route Ran");
 
+//                if user is logged in
         if (session.getAttribute("loggedInUserId") != null) {
             redirectAttributes.addFlashAttribute("alreadyLogged", "You are already logged in!");
             return "redirect:/error/500";
@@ -37,6 +39,7 @@ public class UserRegisterController {
 
     @PostMapping(value = "/registerSubmit")
     public String registerSubmit(@Valid @ModelAttribute("userForm") UserForm userForm, BindingResult result, RedirectAttributes redirectAttributes, HttpSession session) throws EmailNotUniqueException {
+        log.info("RegisterSubmit Route Ran");
 
 //        if user is logged in
         if (session.getAttribute("loggedInUserId") != null) {
@@ -49,7 +52,7 @@ public class UserRegisterController {
             return "register";
         }
 
-//        if passwords match
+//        if passwords don't match
         if (!RegisterUtil.checkPass(userForm.getPassword(), userForm.getConfirm())) {
             redirectAttributes.addFlashAttribute("misMatch", "Passwords don't match!");
             return "redirect:/register";
@@ -61,11 +64,12 @@ public class UserRegisterController {
             return "redirect:/register";
         }
 
+
 //        create user from form
         userService.createUserFromForm(userForm);
-        log.info("successful created new user");
+        redirectAttributes.addFlashAttribute("registerSuccess", "You have successfully registered!");
 
-        return "register_success";
+        return "redirect:/login";
     }
 
 }

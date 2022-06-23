@@ -8,7 +8,6 @@
 <!--navbar-->
 <nav th:replace="fragments/navbar.html :: navBar"></nav>
 <!--navbar-->
-
 <p th:if="${alreadyLogged}" class="alert alert-warning text-center" th:text="${alreadyLogged}"></p>
 <section class="container">
     <div class="d-flex align-items-center justify-content-center vh-100">
@@ -18,8 +17,8 @@
             <p class="lead">
                 The Server did not like what you did.
             </p>
-            <a th:href="@{/}" class="btn btn-primary">Go Home</a>
-            <a th:if="${alreadyLogged}" th:href="@{/logout}" class="btn btn-secondary">click Here to clear session</a>
+            <a th:href="@{/}" class="btn btn-info">Go Home</a>
+            <a th:if="${alreadyLogged}" th:href="@{/logout}" class="btn btn-warning">click Here to clear session</a>
         </div>
     </div>
 </section>

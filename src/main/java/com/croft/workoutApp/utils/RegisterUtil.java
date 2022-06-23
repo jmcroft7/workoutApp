@@ -1,5 +1,9 @@
 package com.croft.workoutApp.utils;
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpSession;
+
 public class RegisterUtil {
 
     public static boolean checkPass(String password, String confirm) {
@@ -12,6 +16,7 @@ public class RegisterUtil {
         return false;
     }
 
+
     public static String formatName(String name) {
 
         if (name.length() < 0) {
@@ -20,7 +25,7 @@ public class RegisterUtil {
         if (name.length() == 1) {
             return name.substring(0, 1).toUpperCase();
         }
-        String fixedName = name.substring(0, 1).toUpperCase() + name.substring(1);
+        String fixedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
         return fixedName;
     }
 

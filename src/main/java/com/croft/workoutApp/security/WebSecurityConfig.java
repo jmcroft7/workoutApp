@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .usernameParameter("email")
                     .passwordParameter("password")
 //                    .loginProcessingUrl("/login/loginSubmit")
-                    .defaultSuccessUrl("/dashboard", true)
+                    .defaultSuccessUrl("/home", true)
                     .permitAll()
                 .and()
                 .logout()

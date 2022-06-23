@@ -1,79 +1,91 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{css/style.css}"/>
+
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js" ></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js" ></script>
+    <script type="text/javascript" th:src="@{js/script.js}"></script>
 </head>
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-md bg-info navbar-light py-3" th:fragment="navBar">
+<nav class="navbar navbar-expand-md navbar-dark bg-info" th:fragment="navBar">
     <div class="container">
         <a th:href="@{/}"  class="navbar-brand">💪 WorkoutTracker</a>
 
-        <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navmenu"
-        >
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navmenu">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
             <ul class="navbar-nav ms-auto gap-1">
-                <li class="nav-item">
-                    <a th:href="@{/}" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/exercises}" class="nav-link">Exercises</a>
-                </li>
-                <li class="nav-item" th:if="${#request.userPrincipal != null}">
-                    <a th:href="@{/logout}" class="btn btn btn-outline-primary">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                        Logout
+
+
+                <li class="nav-item rounded">
+                    <a th:href="@{/}" class="nav-link">
+                        <i class="fa-solid fa-house me-1"></i>
+                        Home
                     </a>
                 </li>
-                <li class="nav-item" th:unless="${#request.userPrincipal != null}">
-                    <a th:href="@{/login}" class="btn btn btn-outline-primary">
+
+
+                <li class="nav-item rounded" th:if="${#request.userPrincipal != null}">
+                    <a th:href="@{/home}" class="nav-link">
+                        <i class="fa-solid fa-computer me-1"></i>
+                        Dashboard
+                    </a>
+                </li>
+
+
+
+
+                <div class="dropdown" th:if="${#request.userPrincipal != null}">
+                    <button class="btn btn-dark dropdown-toggle nav-item rounded" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                        Account
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark nav-item rounded" aria-labelledby="dropdownMenuButton2">
+                        <li>
+                        <a th:href="@{/account/{id}(id = ${session.loggedInUserId})}" class="dropdown-item"><i
+                        class="fa-solid fa-gears me-1"></i>Profile</a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                        <a th:href="@{/logout}" class="dropdown-item">
+                        <i class="fa-solid fa-arrow-right-from-bracket me-1"></i>
+                        Logout
+                        </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <li class="nav-item rounded" th:unless="${#request.userPrincipal != null}">
+                    <a th:href="@{/login}" class="btn btn-dark">
                         <i class="fa-solid fa-arrow-right-to-bracket"></i>
                         Login
                     </a>
                 </li>
-                <li class="nav-item"  th:unless="${#request.userPrincipal != null}">
-                    <a th:href="@{/register}" class="btn btn btn-primary">
+
+
+                <li class="nav-item rounded"  th:unless="${#request.userPrincipal != null}">
+                    <a th:href="@{/register}" class="btn btn-dark">
                         <i class="fa-solid fa-user-plus"></i>
                         Register
                     </a>
                 </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<!-- end of navbar -->
 
-<nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand" href="#page-top">Start Bootstrap</a>
-        <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Portfolio</a></li>
-                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li>
-                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">Contact</a></li>
             </ul>
         </div>
     </div>
 </nav>
+
 
 </body>
 </html>

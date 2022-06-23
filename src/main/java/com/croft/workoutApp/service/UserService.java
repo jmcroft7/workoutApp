@@ -3,6 +3,7 @@ package com.croft.workoutApp.service;
 import com.croft.workoutApp.exception.EmailNotUniqueException;
 import com.croft.workoutApp.model.User;
 import com.croft.workoutApp.model.UserForm;
+import com.croft.workoutApp.model.UserUpdateForm;
 import com.croft.workoutApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -19,7 +20,7 @@ public interface UserService {
 
     public void createUser(User user);
 
-    public void updateUser(long id,  User user);
+    public void updateUser(long id,  UserUpdateForm user);
 
     public void deleteUser(long id);
 

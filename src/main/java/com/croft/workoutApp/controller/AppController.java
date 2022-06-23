@@ -1,52 +1,41 @@
 package com.croft.workoutApp.controller;
 
-import com.croft.workoutApp.repository.UserRepository;
+import com.croft.workoutApp.security.CustomUserDetails;
+import com.croft.workoutApp.utils.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 @Slf4j
 @Controller
+@RequestMapping(value="home")
 public class AppController {
 
-    @Autowired
-    private UserRepository userRepository;
+    @GetMapping("")
+    public String viewHomePage(HttpSession session, RedirectAttributes redirectAttributes) {
 
-    @GetMapping("/")
-    public String viewHomePage(HttpSession session) {
-
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            String userEmail = ((UserDetails)principal).getUsername();
-            System.out.println("You are logged in with " + userEmail);
-            session.setAttribute("userEmail", userEmail);
-            session.setAttribute("seven", "seven");
-            System.out.println("Id = " + session.getAttribute("loggedInUserId"));
-            System.out.println(SecurityContextHolder.getContext());
-        } else {
-            System.out.println("You are not logged in and are Anonymous");
+        if (session.getAttribute("loggedInUserId") != null) {
+            redirectAttributes.addFlashAttribute("alreadyLogged", "You are already logged in!");
+            return "redirect:/home/dashboard";
         }
+        return SessionUtil.setSession(session, redirectAttributes);
 
-        return "index";
-    }
-
-    @GetMapping("/exercises")
-    public String exercises() {
-
-        return "exercises";
     }
 
     @GetMapping("/dashboard")
-    public String dashboard(HttpSession session) {
+    public String dashboard(HttpSession session, RedirectAttributes redirectAttributes) {
 
-        session.setAttribute("loggedInUserId", "1");
-        session.setMaxInactiveInterval(30);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!(principal instanceof UserDetails)) {
+            log.error("You are not logged in!");
+            redirectAttributes.addFlashAttribute("NotAuth", "You are not allowed here! Login to continue");
+            return "redirect:/login";
+        }
         return "dashboard";
     }
 }

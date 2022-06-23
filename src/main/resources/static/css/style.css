@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+nav .navbar {
+    background: #34495e;
+}
+
+ul .nav-item {
+    transition: 3s ease-in-out;
+}
+
+ul .nav-item:hover {
+    outline: 1px solid white;
+}
