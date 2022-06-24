@@ -1,5 +1,6 @@
 package com.croft.workoutApp.repository;
 
+import com.croft.workoutApp.model.Exercise;
 import com.croft.workoutApp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -9,11 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
 
-    @Query("SELECT u FROM User u WHERE u.email = ?1")
-    public Optional<User> findByEmail(String email);
-
-
-
+    @Query("SELECT e FROM Exercise e WHERE e.u_id = ?1")
+    public List<Exercise> findAllByUserId(long id);
 }

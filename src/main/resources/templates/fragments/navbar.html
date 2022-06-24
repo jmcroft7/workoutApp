@@ -7,16 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" type="text/css" th:href="@{css/style.css}"/>
 
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js" ></script>
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js" ></script>
+
+    <link rel="stylesheet" type="text/css" th:href="@{css/style.css}"/>
     <script type="text/javascript" th:src="@{js/script.js}"></script>
 </head>
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-md navbar-dark bg-info" th:fragment="navBar">
+<nav class="navbar navbar-expand-md navbar-dark bg-primary" th:fragment="navBar">
     <div class="container">
         <a th:href="@{/}"  class="navbar-brand">💪 WorkoutTracker</a>
 
@@ -33,6 +34,13 @@
                     <a th:href="@{/}" class="nav-link">
                         <i class="fa-solid fa-house me-1"></i>
                         Home
+                    </a>
+                </li>
+
+                <li class="nav-item rounded">
+                    <a th:href="@{/exercises}" class="nav-link">
+                        <i class="fa-solid fa-weight-hanging me-1"></i>
+                        Exercises
                     </a>
                 </li>
 

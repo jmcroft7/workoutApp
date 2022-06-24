@@ -84,12 +84,12 @@ public class UserServiceIMPL implements UserService {
         String first = RegisterUtil.formatName(userForm.getFirstName());
         String last = RegisterUtil.formatName(userForm.getLastName());
 
-        User user = new User();
-        user.setFirstName(first);
-        user.setLastName(last);
-        user.setPassword(passwordEncoder.encode(userForm.getPassword()));
-        user.setEmail(userForm.getEmail());
+        User _user = new User();
+        _user.setFirstName(first);
+        _user.setLastName(last);
+        _user.setPassword(passwordEncoder.encode(userForm.getPassword()));
+        _user.setEmail(userForm.getEmail());
 
-        userRepo.save(user);
+        userRepo.save(_user);
         }
     }

@@ -44,9 +44,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
-    static String[] noAuth = {"/", "/error/**", "/login/**", "/logout", "/home/**", "/register/**", "/exercises"};
+    static String[] noAuth = {"/", "/error/**", "/login/**", "/logout", "/register/**", "/exercises/**"};
 
-    static String[] userAuth = {"/dashboard"};
+    static String[] userAuth = {"/home/**", "/dashboard"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
