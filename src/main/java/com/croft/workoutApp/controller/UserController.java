@@ -53,7 +53,7 @@ public class UserController {
         }
 
 //        if email is the same as before
-        if (userUpdateForm.getEmail().toString().equals(session.getAttribute("loggedInUserEmail").toString())) {
+        if (userUpdateForm.getEmail().equals(session.getAttribute("loggedInUserEmail").toString())) {
             userService.updateUser(id, userUpdateForm);
             SessionUtil.updateSession(session, redirectAttributes, (long) id, userUpdateForm);
             return "redirect:/account/" + id;
@@ -85,7 +85,7 @@ public class UserController {
         userService.deleteUser(id);
         redirectAttributes.addFlashAttribute("successDelete","Your account has been deleted");
         session.invalidate();
-        return "redirect:/register";
+        return "redirect:/logout";
     }
 
 }

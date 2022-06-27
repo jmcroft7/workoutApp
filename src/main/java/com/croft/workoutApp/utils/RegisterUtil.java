@@ -10,10 +10,7 @@ public class RegisterUtil {
         String pass1 = password;
         String pass2 = confirm;
 
-        if (pass1.equals(pass2)) {
-            return true;
-        }
-        return false;
+        return pass1.equals(pass2);
     }
 
 

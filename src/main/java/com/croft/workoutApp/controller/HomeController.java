@@ -1,19 +1,28 @@
 package com.croft.workoutApp.controller;
 
+import com.croft.workoutApp.model.Exercise;
+import com.croft.workoutApp.service.ExerciseService;
 import com.croft.workoutApp.utils.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+
 @Slf4j
 @Controller
 @RequestMapping(value="/home")
 public class HomeController {
+
+    @Autowired
+    ExerciseService exerciseService;
 
     @GetMapping("")
     public String viewHomePage(HttpSession session, RedirectAttributes redirectAttributes) {
@@ -27,7 +36,7 @@ public class HomeController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboard(HttpSession session, RedirectAttributes redirectAttributes) {
+    public String dashboard(HttpSession session, RedirectAttributes redirectAttributes, Model model) {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (!(principal instanceof UserDetails)) {
@@ -35,6 +44,10 @@ public class HomeController {
             redirectAttributes.addFlashAttribute("NotAuth", "You are not allowed here! Login to continue");
             return "redirect:/login";
         }
+
+        List<Exercise> UserExercises = exerciseService.getAllExercisesByUserId((long) session.getAttribute("loggedInUserId"));
+        model.addAttribute("listExercises", UserExercises);
+
         return "dashboard";
     }
 }

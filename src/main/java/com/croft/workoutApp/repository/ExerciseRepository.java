@@ -13,5 +13,5 @@ import java.util.Optional;
 public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
 
     @Query("SELECT e FROM Exercise e WHERE e.u_id = ?1")
-    public List<Exercise> findAllByUserId(long id);
+    List<Exercise> findAllByUserId(long id);
 }

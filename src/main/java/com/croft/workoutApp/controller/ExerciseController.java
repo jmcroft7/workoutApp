@@ -1,14 +1,19 @@
 package com.croft.workoutApp.controller;
 
 import com.croft.workoutApp.model.Exercise;
+import com.croft.workoutApp.model.ExerciseForm;
 import com.croft.workoutApp.service.ExerciseService;
+import com.croft.workoutApp.utils.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
@@ -21,14 +26,37 @@ public class ExerciseController {
 
     @GetMapping("")
     public String viewExercisePage(Model model) {
+        log.info("Exercise List Route Ran");
         List<Exercise> listExercises = exerciseService.getAllExercises();
         model.addAttribute("listExercises", listExercises);
         return "exercises";
     }
 
-    @GetMapping("/add")
-    public String addExercisePage() {
-        return "exerciseAdd";
+    @GetMapping("/{id}/add")
+    public String addExercisePage(@PathVariable("id") Integer id, @Valid @ModelAttribute("exerciseForm") ExerciseForm exerciseForm, BindingResult result, HttpSession session, RedirectAttributes redirectAttributes) {
+        log.info("Exercise Add Route Ran");
+
+//                checks if user is authenticated and that the user id matches the route id
+        return SessionUtil.checkSession(session, redirectAttributes, id, "exerciseAdd");
+    }
+
+    @PostMapping(value = "/{id}/save")
+    public String saveExercisePage(@PathVariable("id") Integer id, @Valid @ModelAttribute("exerciseForm") ExerciseForm exerciseForm, BindingResult result, RedirectAttributes redirectAttributes, HttpSession session) {
+        log.info("Exercise Save Route Ran");
+
+//         checks if current user matches path variable
+        if (!id.toString().equals(session.getAttribute("loggedInUserId").toString())) {
+            redirectAttributes.addFlashAttribute("NotAuth", "This page either does not exist or you are not authorized");
+            return "redirect:/error/404";
+        }
+
+//        if validation errors
+        if (result.hasErrors()) {
+            return "/exerciseAdd";
+        }
+
+        exerciseService.createExerciseFromForm(exerciseForm, session);
+        return "redirect:/exercises";
     }
 
 }

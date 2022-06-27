@@ -14,7 +14,7 @@
     <p th:if="${NotAuth}" class="text-success" th:text="${NotAuth}"></p>
     <p th:if="${session.loggedInUserFirstName != null}" th:text="${session.loggedInUserFirstName}">
     </p>
-    <a th:if="${session.loggedInUserFirstName != null}" th:href="@{/exercise/add}" class="btn btn-warning float-end mb-2">Add Workout</a>
+    <a th:if="${session.loggedInUserFirstName != null}" th:href="@{/exercises/{id}/add(id = ${session.loggedInUserId})}" class="btn btn-warning float-end mb-2">Add Workout</a>
     <div>
         <table class="table table-light table-striped table-bordered border-dark">
             <thead class="thead-light">

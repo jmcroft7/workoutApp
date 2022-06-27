@@ -5,10 +5,51 @@
     <title>WorkoutApp | Exercises</title>
 </head>
 
-<body>
+<body class="bg-dark">
 <!--navbar-->
 <nav th:replace="fragments/navbar.html :: navBar"></nav>
 <!--navbar-->
-    <h2>Hi</h2>
+<section class="container">
+
+    <div class="container bg-light p-5 mt-5 w-50 rounded">
+        <h2 class="text-center">Add Exercise Page</h2>
+        <form method="post" th:action="@{/exercises/{id}/save(id = ${session.loggedInUserId})}"
+              th:object="${exerciseForm}" class="container d-flex flex-column">
+
+            <div class="mb-3">
+                <label for="e_name" class="form-label">Exercise Name: </label>
+                <input type="text" id="e_name" class="form-control" th:field="*{e_name}">
+                <span th:if="${#fields.hasErrors('e_name')}" th:errors="*{e_name}" th:errorclass="error"
+                      class="form-text text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="e_type" class="form-label">Exercise Type: </label>
+                <input type="text" id="e_type" class="form-control" th:field="*{e_type}">
+                <span th:if="${#fields.hasErrors('e_type')}" th:errors="*{e_type}" th:errorclass="error"
+                      class="form-text text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="e_sets" class="form-label">Sets: </label>
+                <input id="e_sets" class="form-control" th:field="*{e_sets}">
+                <span th:if="${#fields.hasErrors('e_sets')}" th:errors="*{e_sets}" th:errorclass="error"
+                      class="form-text text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="e_reps" class="form-label">Reps: </label>
+                <input id="e_reps" class="form-control" th:field="*{e_reps}">
+                <span th:if="${#fields.hasErrors('e_reps')}" th:errors="*{e_reps}" th:errorclass="error"
+                      class="form-text text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-around">
+                <button type="submit" class="btn btn-primary mb-2">Submit</button>
+            </div>
+        </form>
+
+    </div>
+</section>
 </body>
 </html>

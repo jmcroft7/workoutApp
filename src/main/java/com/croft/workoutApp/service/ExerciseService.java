@@ -10,16 +10,16 @@ import java.util.Optional;
 
 public interface ExerciseService {
 
-    public List<Exercise> getAllExercises();
+    List<Exercise> getAllExercises();
 
-    public Optional<Exercise> getExerciseById(long id);
+    Optional<Exercise> getExerciseById(long id);
 
-    public void createExerciseFromForm(ExerciseForm exerciseForm, HttpSession session);
+    void createExerciseFromForm(ExerciseForm exerciseForm, HttpSession session);
 
-    public void updateExercise(long id,  ExerciseForm exerciseForm);
+    void updateExercise(long id,  ExerciseForm exerciseForm);
 
-    public void deleteExercise(long id);
+    void deleteExercise(long id);
 
-    public List<Exercise> getAllExercisesByUserId(long id);
+    List<Exercise> getAllExercisesByUserId(long id);
 
 }

@@ -2,6 +2,7 @@ package com.croft.workoutApp.model;
 
 import lombok.*;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 @Setter
@@ -19,10 +20,10 @@ public class ExerciseForm {
     @NotEmpty(message="type cannot be empty")
     private String e_type;
 
-    @NotEmpty(message="sets cannot be empty")
+    @Min(value=1, message="Sets cannot be empty")
     private Long e_sets;
 
-    @NotEmpty(message="Reps cannot be empty")
+    @Min(value=1, message="Reps cannot be empty")
     private Long e_reps;
 
 }

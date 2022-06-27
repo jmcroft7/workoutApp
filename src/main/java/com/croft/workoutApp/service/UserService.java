@@ -14,19 +14,19 @@ import java.util.Optional;
 public interface UserService {
 
 
-    public List<User> getAllUsers();
+    List<User> getAllUsers();
 
-    public Optional<User> getUserById(long id);
+    Optional<User> getUserById(long id);
 
-    public void createUser(User user);
+    void createUser(User user);
 
-    public void updateUser(long id,  UserUpdateForm user);
+    void updateUser(long id,  UserUpdateForm user);
 
-    public void deleteUser(long id);
+    void deleteUser(long id);
 
-    public Optional<User> findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
-    public void createUserFromForm(UserForm userForm) throws EmailNotUniqueException;
+    void createUserFromForm(UserForm userForm) throws EmailNotUniqueException;
 
 
 

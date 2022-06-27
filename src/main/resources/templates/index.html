@@ -8,15 +8,18 @@
 <!--navbar-->
 <nav th:replace="fragments/navbar.html :: navBar"></nav>
 <!--navbar-->
-<section class="container">
+<p th:if="${successDelete}" class="alert alert-success text-center" th:text="${successDelete}"></p>
+<section class="container H-100 d-flex flex-column align-items-center justify-content-center">
     <h1>Index Page</h1>
-    <p th:if="${#request.userPrincipal != null}">
-        Hello, [[${session.loggedInUserFirstName}]]
-    </p>
+    <div>
+        <p th:if="${#request.userPrincipal != null}">
+            Hello, [[${session.loggedInUserFirstName}]]
+        </p>
 
-    <p th:unless="${#request.userPrincipal != null}">
-        Hello, You are not signed in!
-    </p>
+        <p th:unless="${#request.userPrincipal != null}">
+            Hello, You are not signed in!
+        </p>
+    </div>
 
 </section>
 

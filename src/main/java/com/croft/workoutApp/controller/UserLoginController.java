@@ -27,7 +27,7 @@ public class UserLoginController {
     }
 
     @GetMapping(value = "/logout")
-    public String logout(HttpSession session, Authentication authentication) {
+    public String logout(HttpSession session, Authentication authentication, RedirectAttributes redirectAttributes) {
         log.info("Logout Route Ran");
 
 //        invalidate session and set authenticated to false

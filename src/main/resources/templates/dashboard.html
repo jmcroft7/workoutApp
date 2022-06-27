@@ -5,16 +5,41 @@
     <title>WorkoutApp | Admin</title>
 </head>
 
-<body>
+<body class="bg-dark">
 <!--navbar-->
 <nav th:replace="fragments/navbar.html :: navBar"></nav>
 <!--navbar-->
 
 <section class="container">
-
     <div>
-        <h1>List of Users</h1>
+        <p th:if="${NotAuth}" class="text-success" th:text="${NotAuth}"></p>
+        <p th:if="${session.loggedInUserFirstName != null}" th:text="${session.loggedInUserFirstName}">
+        </p>
+        <a th:if="${session.loggedInUserFirstName != null}" th:href="@{/exercises/{id}/add(id = ${session.loggedInUserId})}" class="btn btn-warning float-end mb-2">Add Workout</a>
     </div>
+    <div>
+        <table class="table table-light table-striped table-bordered border-dark">
+            <thead class="thead-light">
+            <tr class="">
+                <th>Name</th>
+                <th>Type</th>
+                <th>Sets</th>
+                <th>Reps</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="exercise: ${listExercises}">
+                <td th:text="${exercise.e_name}">Name</td>
+                <td th:text="${exercise.e_type}">Type</td>
+                <td th:text="${exercise.e_sets}">Sets</td>
+                <td th:text="${exercise.e_reps}">Reps</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
 
 </section>
 
