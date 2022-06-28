@@ -2,9 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
 >
 <head th:insert="fragments/header.html :: headerFiles">
-    <title>WorkoutApp | Login</title>
+    <title>WA | Login</title>
 </head>
-<body class="bg-dark">
+<body class="bg-dark h-100">
 <!--navbar-->
 <nav th:replace="fragments/navbar.html :: navBar"></nav>
 <!--navbar-->
@@ -12,8 +12,12 @@
 
 <section class="container">
 
+    <div class="container mt-5 w-50 rounded text-light">
+        <h2 class="text-center fw-bold mb-2"><span class="highlight">Login Page</span></h2>
+    </div>
+
     <div class="container bg-light p-5 mt-5 w-50 rounded">
-        <h2 class="text-center fw-bold mb-2">Login Page</h2>
+
         <p th:if="${NotAuth}" class="text-success" th:text="${NotAuth}"></p>
         <p th:if="${param.logout}" class="text-warning">You have been logged out.</p>
 
@@ -46,5 +50,8 @@
 
 </section>
 
+<!--footer-->
+<footer th:insert="fragments/footer.html :: footer"></footer>
+<!-- end footer -->
 </body>
 </html>

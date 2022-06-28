@@ -1,3 +1,7 @@
 #bg-custom {
     background: #34495e;
 }
+
+.highlight {
+  background: linear-gradient(180deg,rgba(255,255,255,0) 50%, rgba(13,110,253, 0.5) 50%);
+}

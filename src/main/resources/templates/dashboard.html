@@ -2,15 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org"
 >
 <head th:insert="fragments/header.html :: headerFiles">
-    <title>WorkoutApp | Admin</title>
+    <title>WA | Dashboard</title>
 </head>
 
-<body class="bg-dark">
+
+<body class="bg-dark h-100">
 <!--navbar-->
 <nav th:replace="fragments/navbar.html :: navBar"></nav>
 <!--navbar-->
-
+<p th:if="${loginSuccess}" class="alert alert-success text-center" th:text="${loginSuccess}"></p>
 <section class="container">
+    <p class="text-center">Hello, <span class="highlight">[[${session.loggedInUserFirstName}]]</span></p>
     <div>
         <p th:if="${NotAuth}" class="text-success" th:text="${NotAuth}"></p>
         <p th:if="${session.loggedInUserFirstName != null}" th:text="${session.loggedInUserFirstName}">
@@ -38,10 +40,11 @@
         </table>
     </div>
 
-
-
-
 </section>
+
+<!--footer-->
+<footer th:insert="fragments/footer.html :: footer"></footer>
+<!-- end footer -->
 
 </body>
 </html>

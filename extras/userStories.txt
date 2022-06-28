@@ -1,0 +1,8 @@
+User Stories
+------------
+
+As a GUEST, I want to view exercises so I can learn how to exercise.
+As a USER, I want the ability to add exercises I have completed to a list so I can track my progress.
+As a USER, I want the ability to add additional information so I can have a personalized experience.
+As a USER, I want my information secured for the safety of my personal data.
+As a USER, I want the ability to delete my information if I ever want to quit using the application.
