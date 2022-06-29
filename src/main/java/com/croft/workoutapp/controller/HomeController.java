@@ -76,7 +76,7 @@ public class HomeController {
 
         exerciseService.updateExercise(id, exerciseForm);
         redirectAttributes.addFlashAttribute("updateExercise", "You successfully updated the exercise");
-        return "redirect:/exercises";
+        return "redirect:/home/dashboard";
     }
 
     @GetMapping("/dashboard/showDelete/{id}")

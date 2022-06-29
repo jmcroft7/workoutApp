@@ -20,27 +20,27 @@
 
         <div class="mb-3 d-flex border-bottom">
             <p class="col-6">Exercise Name: </p>
-            <span class="fw-bold col-6" th:text="${session.loggedInUserEmail}"></span>
+            <span class="fw-bold col-6" th:text="${exercise.e_name}"></span>
         </div>
 
         <div class="mb-3 d-flex border-bottom">
             <p class="col-6">Exercise Type: </p>
-            <span class="fw-bold" th:text="${session.loggedInUserFirstName}"></span>
+            <span class="fw-bold" th:text="${exercise.e_type}"></span>
         </div>
 
         <div class="mb-3 d-flex border-bottom">
             <p class="col-6">Sets: </p>
-            <span class="fw-bold" th:text="${session.loggedInUserLastName}"></span>
+            <span class="fw-bold" th:text="${exercise.e_sets}"></span>
         </div>
 
         <div class="mb-3 d-flex border-bottom">
             <p class="col-6">Reps: </p>
-            <span class="fw-bold" th:text="${session.loggedInUserLastName}"></span>
+            <span class="fw-bold" th:text="${exercise.e_reps}"></span>
         </div>
 
         <div class="mb-3 d-flex flex-start">
             <div class="col-6">
-                <a th:href="@{/home/dashboard/edit/{id}(id = ${session.loggedInUserId})}" class="btn btn-primary mb-2">Edit</a>
+                <a th:href="@{/home/dashboard/edit/{id}(id = ${session.loggedInUserId})}" class="btn btn-sm btn-warning"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
             </div>
             <div class="">
                 <a th:href="@{/home/dashboard/confirmDelete/{id}(id = ${exercise.e_id})}" class="btn btn-sm btn-danger"><i class="fa-solid fa-circle-minus"></i> Delete</a>

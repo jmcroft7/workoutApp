@@ -23,12 +23,13 @@
 <!--navbar-->
 
 <p th:if="${loginSuccess}" class="alert alert-success text-center" th:text="${loginSuccess}"></p>
+<p th:if="${updateExercise}" class="alert alert-success text-center" th:text="${updateExercise}"></p>
 <p th:if="${NotAuth}" class="text-success" th:text="${NotAuth}"></p>
 
 <section class="container">
 
     <div class="container my-5 rounded text-light d-flex justify-content-between">
-        <h2 class="fw-bold mb-2"><span class="highlight"> All Exercises </span></h2>
+        <h2 class="fw-bold mb-2"><span class="highlight"> Your Exercises </span></h2>
     </div>
 
     <div class="bg-light rounded">

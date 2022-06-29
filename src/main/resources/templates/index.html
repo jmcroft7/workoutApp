@@ -1,27 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 >
-<head th:insert="fragments/header.html :: headerFiles">
+<head>
     <title>WorkoutApp | Index</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" defer/>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js" ></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js" ></script>
+    <script type="text/javascript" th:src="@{/js/script.js}" defer></script>
 </head>
 <body class="h-100">
 <!--navbar-->
 <nav th:replace="fragments/navbar.html :: navBar"></nav>
 <!--navbar-->
 <p th:if="${successDelete}" class="alert alert-success text-center" th:text="${successDelete}"></p>
-<section class="container H-100 d-flex flex-column align-items-center justify-content-center">
-    <h1>Index Page</h1>
-    <div>
-        <p th:if="${#request.userPrincipal != null}">
-            Hello, [[${session.loggedInUserFirstName}]]
-        </p>
-
-        <p th:unless="${#request.userPrincipal != null}">
-            Hello, You are not signed in!
-        </p>
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-5">
+        <div class="row gx-5 align-items-center justify-content-center">
+            <div class="col-lg-8 col-xl-7 col-xxl-6">
+                <div class="my-5 text-center text-xl-start">
+                    <h1 class="display-5 fw-bolder text-white mb-2">WorkoutTracker</h1>
+                    <p class="lead fw-normal text-white-50 mb-4">Tracking your workouts has never been easier</p>
+                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                        <a class="btn btn-primary btn px-4 me-sm-3" th:href="@{/register}">Sign-Up</a>
+                        <a class="btn btn-outline-light btn px-4" th:href="@{/login}">Login</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+                <img th:src="@{images\index-1.jpg}" class="img-fluid rounded-5 my-5" alt="main-image" />
+            </div>
+        </div>
     </div>
-
-</section>
+</header>
+<!-- Testimonial section-->
+<div class="py-5 bg-light">
+    <div class="container px-5 my-5">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-10 col-xl-7">
+                <div class="text-center">
+                    <div class="fs-4 mb-4 fst-italic">"This app allowed me to track my progress and reach my goals! I can't wait until they allow me to import my data from another app!"</div>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <img class="rounded-circle me-3" src="" alt="profile-image" />
+                        <div class="fw-bold">
+                            John Doe
+                            <span class="fw-bold text-primary mx-1">/</span>
+                            A Cool Guy
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!--footer-->
 <footer th:insert="fragments/footer.html :: footer"></footer>

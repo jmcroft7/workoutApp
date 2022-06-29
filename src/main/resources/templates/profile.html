@@ -34,10 +34,10 @@
 
         <div class="mb-3 d-flex flex-start">
             <div class="col-6">
-                <a th:href="@{/account/{id}/edit(id = ${session.loggedInUserId})}" class="btn btn-primary mb-2">Edit</a>
+                <a th:href="@{/account/{id}/edit(id = ${session.loggedInUserId})}" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i>Edit</a>
             </div>
             <div class="">
-                <a th:href="@{/account/{id}/showDelete(id = ${session.loggedInUserId})}" class="btn btn-danger mb-2 float-end">Delete</a>
+                <a th:href="@{/account/{id}/showDelete(id = ${session.loggedInUserId})}" class="btn btn-danger"><i class="fa-solid fa-circle-minus"></i> Delete</a>
             </div>
         </div>
         </form>

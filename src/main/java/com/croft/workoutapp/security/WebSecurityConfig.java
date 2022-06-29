@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import javax.sql.DataSource;
 
@@ -47,10 +48,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     static String[] userAuth = {"/home/**", "/dashboard/**", "/exercises/**"};
 
+
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+                .addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/");     }
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**/*.js", "/**/*.css", "/css/**", "/js/**").permitAll()
+                .antMatchers("/static/**", "/**/*.js", "/**/*.css", "/css/**", "/js/**").permitAll()
                 .antMatchers(noAuth).permitAll()
                 .antMatchers(userAuth).authenticated()
                 .anyRequest().permitAll()
