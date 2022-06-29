@@ -5,6 +5,7 @@ import com.croft.workoutapp.service.UserService;
 import com.croft.workoutapp.utils.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -71,8 +72,13 @@ public class UserController {
         return "redirect:/account/" + id;
     }
 
+    @GetMapping(value = "/{id}/showDelete")
+    public String showDeleteUser(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes, HttpSession session) {
+        return SessionUtil.checkSession(session, redirectAttributes, id, "delete_profile");
+    }
+
     @GetMapping(value = "/{id}/delete")
-    public String deleteUserAccount(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes, HttpSession session) {
+    public String deleteUserAccount(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes, HttpSession session, Authentication authentication) {
         log.info("Account Delete Route Ran");
 
 //         checks if current user matches path variable
@@ -83,9 +89,10 @@ public class UserController {
 
 //        create user from form
         userService.deleteUser(id);
-        redirectAttributes.addFlashAttribute("successDelete","Your account has been deleted");
         session.invalidate();
-        return "redirect:/logout";
+        authentication.isAuthenticated();
+        redirectAttributes.addFlashAttribute("successDelete","Your account has been deleted");
+        return "redirect:/";
     }
 
 }

@@ -60,6 +60,18 @@ public class ExerciseServiceIMPL implements ExerciseService {
 
     @Override
     public void updateExercise(long id, ExerciseForm exerciseForm) {
+        Exercise _exercise = exerciseRepo.findById(id).get();
+
+        String name = RegisterUtil.formatName(exerciseForm.getE_name());
+        String type = RegisterUtil.formatName(exerciseForm.getE_type());
+
+        _exercise.setE_name(name);
+        _exercise.setE_type(type);
+        _exercise.setE_reps(exerciseForm.getE_reps());
+        _exercise.setE_sets(exerciseForm.getE_sets());
+
+        exerciseRepo.save(_exercise);
+
 
     }
 

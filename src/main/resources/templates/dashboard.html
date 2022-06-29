@@ -1,8 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 >
-<head th:insert="fragments/header.html :: headerFiles">
+<head>
     <title>WA | Dashboard</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js" ></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js" ></script>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" defer/>
+    <script type="text/javascript" th:src="@{/js/script.js}" defer></script>
 </head>
 
 
@@ -10,23 +21,25 @@
 <!--navbar-->
 <nav th:replace="fragments/navbar.html :: navBar"></nav>
 <!--navbar-->
+
 <p th:if="${loginSuccess}" class="alert alert-success text-center" th:text="${loginSuccess}"></p>
+<p th:if="${NotAuth}" class="text-success" th:text="${NotAuth}"></p>
+
 <section class="container">
-    <p class="text-center">Hello, <span class="highlight">[[${session.loggedInUserFirstName}]]</span></p>
-    <div>
-        <p th:if="${NotAuth}" class="text-success" th:text="${NotAuth}"></p>
-        <p th:if="${session.loggedInUserFirstName != null}" th:text="${session.loggedInUserFirstName}">
-        </p>
-        <a th:if="${session.loggedInUserFirstName != null}" th:href="@{/exercises/{id}/add(id = ${session.loggedInUserId})}" class="btn btn-warning float-end mb-2">Add Workout</a>
+
+    <div class="container my-5 rounded text-light d-flex justify-content-between">
+        <h2 class="fw-bold mb-2"><span class="highlight"> All Exercises </span></h2>
     </div>
-    <div>
-        <table class="table table-light table-striped table-bordered border-dark">
+
+    <div class="bg-light rounded">
+        <table class="table table-striped table-hover rounded align-middle">
             <thead class="thead-light">
             <tr class="">
                 <th>Name</th>
                 <th>Type</th>
                 <th>Sets</th>
                 <th>Reps</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -35,6 +48,11 @@
                 <td th:text="${exercise.e_type}">Type</td>
                 <td th:text="${exercise.e_sets}">Sets</td>
                 <td th:text="${exercise.e_reps}">Reps</td>
+                <td>
+                    <a th:href="@{/home/dashboard/edit/{id}(id = ${exercise.e_id})}" class="btn btn-sm btn-warning"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                    |
+                    <a th:href="@{/home/dashboard/showDelete/{id}(id = ${exercise.e_id})}" class="btn btn-sm btn-danger"><i class="fa-solid fa-circle-minus"></i> Delete</a>
+                </td>
             </tr>
             </tbody>
         </table>

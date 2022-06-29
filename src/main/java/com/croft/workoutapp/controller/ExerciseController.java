@@ -3,6 +3,7 @@ package com.croft.workoutapp.controller;
 import com.croft.workoutapp.model.Exercise;
 import com.croft.workoutapp.model.ExerciseForm;
 import com.croft.workoutapp.service.ExerciseService;
+import com.croft.workoutapp.utils.RegisterUtil;
 import com.croft.workoutapp.utils.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,19 @@ public class ExerciseController {
     }
 
     @GetMapping("/{id}/add")
-    public String addExercisePage(@PathVariable("id") Integer id, @Valid @ModelAttribute("exerciseForm") ExerciseForm exerciseForm, BindingResult result, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String addExercisePage(@PathVariable("id") Integer id, @ModelAttribute("exerciseForm") ExerciseForm exerciseForm, RedirectAttributes redirectAttributes, HttpSession session) {
         log.info("Exercise Add Route Ran");
 
+//                if user is not logged in
+        if (session.getAttribute("loggedInUserId") == null) {
+            redirectAttributes.addFlashAttribute("NotAuth", "This page either does not exist or you are not authorized");
+            return "redirect:/error/404";
+        }
+
+        return "exerciseAdd";
+
 //                checks if user is authenticated and that the user id matches the route id
-        return SessionUtil.checkSession(session, redirectAttributes, id, "exerciseAdd");
+//        return SessionUtil.checkSession(session, redirectAttributes, id, "exerciseAdd");
     }
 
     @PostMapping(value = "/{id}/save")
@@ -52,12 +61,14 @@ public class ExerciseController {
 
 //        if validation errors
         if (result.hasErrors()) {
-            return "/exerciseAdd";
+            return "exerciseAdd";
         }
 
         exerciseService.createExerciseFromForm(exerciseForm, session);
         redirectAttributes.addFlashAttribute("exerciseSuccess", "You successfully created an exercise");
         return "redirect:/exercises";
     }
+
+
 
 }

@@ -66,4 +66,16 @@ public class SessionUtil {
 
     }
 
+    public static String checkSession(HttpSession session, RedirectAttributes redirectAttributes, String route) {
+
+//                checks if current user is logged in
+        if (!(session.getAttribute("loggedInUserId") instanceof Long)) {
+            redirectAttributes.addFlashAttribute("NotAuth", "This page either does not exist or you are not authorized");
+            return "redirect:/error/404";
+        }
+
+        return route;
+
+    }
+
 }

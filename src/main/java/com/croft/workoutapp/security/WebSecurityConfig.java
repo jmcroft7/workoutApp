@@ -43,13 +43,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
-    static String[] noAuth = {"/", "/error/**", "/login/**", "/logout", "/register/**", "/exercises/**"};
+    static String[] noAuth = {"/", "/error/**", "/login/**", "/logout", "/register/**", "/exercises"};
 
-    static String[] userAuth = {"/home/**", "/dashboard"};
+    static String[] userAuth = {"/home/**", "/dashboard/**", "/exercises/**"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/**/*.js", "/**/*.css", "/css/**", "/js/**").permitAll()
                 .antMatchers(noAuth).permitAll()
                 .antMatchers(userAuth).authenticated()
                 .anyRequest().permitAll()

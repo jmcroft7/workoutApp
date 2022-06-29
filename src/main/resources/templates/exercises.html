@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 >
 <head th:insert="fragments/header.html :: headerFiles">
-    <title>WorkoutApp | Exercises</title>
+    <title>WA | All Exercises</title>
 </head>
 
 <body class="bg-dark text-light h-100">
@@ -10,14 +10,17 @@
 <nav th:replace="fragments/navbar.html :: navBar"></nav>
 <!--navbar-->
 <p th:if="${exerciseSuccess}" class="alert alert-success text-center" th:text="${exerciseSuccess}"></p>
+<p th:if="${NotAuth}" class="text-success" th:text="${NotAuth}"></p>
+
 <section class="container">
-    <h1>Exercise Page</h1>
-    <p th:if="${NotAuth}" class="text-success" th:text="${NotAuth}"></p>
-    <p th:if="${session.loggedInUserFirstName != null}" th:text="${session.loggedInUserFirstName}">
-    </p>
-    <a th:if="${session.loggedInUserFirstName != null}" th:href="@{/exercises/{id}/add(id = ${session.loggedInUserId})}" class="btn btn-warning float-end mb-2">Add Workout</a>
-    <div>
-        <table class="table table-light table-striped table-bordered border-dark">
+
+    <div class="container my-5 rounded text-light d-flex justify-content-between">
+        <h2 class="fw-bold mb-2"><span class="highlight"> All Exercises </span></h2>
+        <a th:if="${session.loggedInUserFirstName != null}" th:href="@{/exercises/{id}/add(id = ${session.loggedInUserId})}" class=" btn btn-sm btn-success float-end mb-2"><i class="fa-solid fa-circle-plus"></i> Add Exercise</a>
+    </div>
+
+    <div class="bg-light rounded">
+        <table class="table table-striped table-hover rounded">
             <thead class="thead-light">
             <tr class="">
                 <th>Name</th>

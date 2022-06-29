@@ -12,10 +12,11 @@
 <section class="container">
 
     <div class="container mt-5 w-50 rounded text-light">
-        <h2 class="text-center fw-bold mb-2"><span class="highlight">Profile</span></h2>
+        <h2 class="text-center fw-bold mb-2"><span class="highlight">Delete Profile</span></h2>
     </div>
 
     <div class="container bg-light p-5 mt-5 w-50 rounded">
+        <p class="text-danger fw-bold mb-2">Are you sure you want to delete your profile? This action cannot be undone</p>
 
         <div class="mb-3 d-flex border-bottom">
             <p class="col-6">Email: </p>
@@ -37,10 +38,9 @@
                 <a th:href="@{/account/{id}/edit(id = ${session.loggedInUserId})}" class="btn btn-primary mb-2">Edit</a>
             </div>
             <div class="">
-                <a th:href="@{/account/{id}/showDelete(id = ${session.loggedInUserId})}" class="btn btn-danger mb-2 float-end">Delete</a>
+                <a th:href="@{/account/{id}/delete(id = ${session.loggedInUserId})}" class="btn btn-danger mb-2 float-end">Delete</a>
             </div>
         </div>
-        </form>
     </div>
 
 </section>
