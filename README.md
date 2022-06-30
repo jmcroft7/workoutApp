@@ -18,8 +18,8 @@ As a user you can:
 1. Thymeleaf
     1. Server side `validations`, `flashAttributes`, and conditional rendering.
 1. `Html`, `Css`, `JavaScript`
-1. `Bootstrap 5`
-1. `MariaDB`
+1. `Bootstrap 5`, `jQuery`
+1. `Springboot`, `MariaDB`
 
 
 ## Contact
